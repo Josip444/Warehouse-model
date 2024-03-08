@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 public class Parts {
     @Id
     @GeneratedValue
-    @Column(name="part_id")
     private Long id;
 
     @ManyToOne
@@ -17,19 +16,18 @@ public class Parts {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @Column(name="Part_Name")
-    private String partName;
+    private String name;
 
     public Parts()
     {
 
     }
 
-    public Parts(Long id, CarModel carModel, Category category, String partName) {
+    public Parts(Long id, CarModel carModel, Category category, String name) {
         this.id = id;
         this.carModel = carModel;
         this.category = category;
-        this.partName = partName;
+        this.name = name;
     }
 
     public Long getId() {
@@ -56,11 +54,11 @@ public class Parts {
         this.category = category;
     }
 
-    public String getPartName() {
-        return partName;
+    public String getName() {
+        return name;
     }
 
-    public void setPartName(String partName) {
-        this.partName = partName;
+    public void setName(String name) {
+        this.name = name;
     }
 }

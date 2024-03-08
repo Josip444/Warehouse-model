@@ -10,18 +10,15 @@ public class CarBrand {
 
     @Id
     @GeneratedValue
-
     @Column(name = "brand_id")
     private Long id;
 
-    @Column(name = "Brand_name")
     private String name;
 
     public CarBrand()
     {
 
     }
-
     public CarBrand(Long id, String name) {
         this.id = id;
         this.name = name;

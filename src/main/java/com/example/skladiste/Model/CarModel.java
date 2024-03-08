@@ -7,24 +7,23 @@ import jakarta.persistence.*;
 public class CarModel {
     @Id
     @GeneratedValue
-    @Column(name="model_id")
+    @Column(name = "model_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="brand_id")
+    @JoinColumn(name = "brand_id")
     private CarBrand carBrand;
-    @Column(name="Model_Name")
-    private String modelName;
 
-    public CarModel()
-    {
+    private String name;
+
+    public CarModel() {
 
     }
 
-    public CarModel(Long id, CarBrand carBrand, String modelName) {
+    public CarModel(Long id, CarBrand carBrand, String name) {
         this.id = id;
         this.carBrand = carBrand;
-        this.modelName = modelName;
+        this.name = name;
     }
 
     public Long getId() {
@@ -43,11 +42,11 @@ public class CarModel {
         this.carBrand = carBrand;
     }
 
-    public String getModelName() {
-        return modelName;
+    public String getName() {
+        return name;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setName(String name) {
+        this.name = name;
     }
 }
