@@ -15,4 +15,9 @@ public class CarBrandService {
     {
         carBrandRepository.save(carBrand);
     }
+
+    public void deleteCarBrand(Long id)
+    {
+        carBrandRepository.deleteById(id);
+    }
 }

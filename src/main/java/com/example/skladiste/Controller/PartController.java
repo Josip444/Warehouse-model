@@ -6,10 +6,12 @@ import com.example.skladiste.Model.Parts;
 import com.example.skladiste.Repository.CarModelRepository;
 import com.example.skladiste.Repository.CategoryRepository;
 import com.example.skladiste.Repository.PartRepository;
+import com.example.skladiste.Service.PartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class PartController {
     CarModelRepository carModelRepository;
     @Autowired
     PartRepository partRepository;
+
+    @Autowired
+    PartService partService;
 
     @GetMapping("/showPartForm")
     public String showPartForm(Model model){
@@ -42,6 +47,25 @@ public class PartController {
     public String addPart(Parts parts){
 
         this.partRepository.save(parts);
-        return "redirect:/showPartForm";
+        return "redirect:/showAllParts";
+    }
+
+
+    @GetMapping("/showAllParts")
+    public String showAllParts(Model model){
+
+        List<Parts> parts = this.partRepository.findAll();
+
+        model.addAttribute("parts",parts);
+
+        return "parts/showParts";
+    }
+
+    @PostMapping("/deletePart/{partId}")
+    public String deleteOrder(@PathVariable Long partId){
+
+        this.partService.deletePart(partId);
+
+        return "redirect:/showAllParts";
     }
 }
