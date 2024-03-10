@@ -49,7 +49,7 @@
             <td th:text="${part.carModel.carBrand.name}">Brand</td>
             <td>
                 <form th:action="@{/deletePart/{partId}(partId=${part.id})}" method="post">
-                    <button type="button" class="btn btn-grey delete-order-btn">Delete</button>
+                    <button type="submit" class="btn btn-grey delete-order-btn">Delete</button>
                 </form>
             </td>
         </tr>
