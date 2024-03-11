@@ -24,6 +24,7 @@
             border-color: grey;
             color: #fff;
         }
+
     </style>
 </head>
 <body>
@@ -43,6 +44,7 @@
             <th>Car Model</th>
             <th>Category</th>
             <th>Car Brand</th>
+            <th>Available</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -52,6 +54,9 @@
             <td th:text="${part.carModel.name}">Model</td>
             <td th:text="${part.category.name}">Category</td>
             <td th:text="${part.carModel.carBrand.name}">Brand</td>
+            <td>
+                <input type="checkbox" th:checked="${part.available}" disabled>
+            </td>
             <td>
                 <form th:action="@{/deletePart/{partId}(partId=${part.id})}" method="post">
                     <button type="submit" class="btn btn-grey delete-order-btn">Delete</button>

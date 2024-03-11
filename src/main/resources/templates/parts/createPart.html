@@ -27,6 +27,12 @@
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Brand</option>
             </select>
         </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="available" name="available" th:checked="${part.available}">
+            <label class="form-check-label" for="available">Available</label>
+        </div>
+
         <button type="submit" class="btn btn-primary">Add Part</button>
     </form>
 </div>

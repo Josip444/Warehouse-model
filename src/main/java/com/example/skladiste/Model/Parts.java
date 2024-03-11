@@ -18,16 +18,19 @@ public class Parts {
 
     private String name;
 
+    private Boolean available;
+
     public Parts()
     {
 
     }
 
-    public Parts(Long id, CarModel carModel, Category category, String name) {
+    public Parts(Long id, CarModel carModel, Category category, String name,Boolean available) {
         this.id = id;
         this.carModel = carModel;
         this.category = category;
         this.name = name;
+        this.available = available;
     }
 
     public Long getId() {
@@ -60,5 +63,13 @@ public class Parts {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 }
