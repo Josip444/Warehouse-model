@@ -103,14 +103,9 @@ public class PartController {
         model.addAttribute("parts",parts);
         return "parts/showParts";
     }
-    @GetMapping("/getModelsByBrand/{brandId}")
-    public List<CarModel> findModelsByBrand(@PathVariable Long brandId){
-        return this.carModelService.findModelsByBrand(brandId);
-    }
 
     @GetMapping("/search")
     public String searchByPartsName(Model model,@RequestParam("search")String search){
-
         List<Parts> parts = this.partService.searchPartsByName(search);
 
         model.addAttribute("parts",parts);

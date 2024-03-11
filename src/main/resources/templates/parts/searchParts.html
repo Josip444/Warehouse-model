@@ -26,14 +26,12 @@
         <div class="mb-3">
             <label for="model">Model:</label>
             <select class="form-select" id="model" name="model">
-                <option value="">Model</option>
                 <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}">Model</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="category">Category:</label>
             <select class="form-select" id="category" name="category">
-                <option value="">Category</option>
                 <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">Category</option>
             </select>
         </div>
@@ -48,22 +46,24 @@
 
         modelSelect.innerHTML = '<option value="">Model</option>';
 
-        fetch('/getModelsByBrand/' + brandId)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                data.forEach(model => {
-                    var option = document.createElement("option");
-                    option.value = model.id;
-                    option.text = model.name;
-                    modelSelect.appendChild(option);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+        if (brandId !== "") {
+            fetch('/getModelsByBrand/' + brandId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    data.forEach(model => {
+                        var option = document.createElement("option");
+                        option.value = model.id;
+                        option.text = model.name;
+                        modelSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
     }
 </script>
 </body>

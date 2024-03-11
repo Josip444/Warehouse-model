@@ -10,7 +10,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CarModelRepository extends JpaRepository<CarModel,Long> {
-
     @Query("SELECT m FROM CarModel m LEFT JOIN m.carBrand b WHERE b = :brand")
     public List<CarModel> findModelsByBrand(@Param("brand") CarBrand brand);
 }
