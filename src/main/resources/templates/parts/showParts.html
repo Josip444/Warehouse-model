@@ -19,6 +19,26 @@
             text-align: center;
         }
 
+        .navbar {
+            background-color: #4f868c; /* Blue background color */
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fff;
+
+        }
+
+        .footer {
+            background-color: #4f868c; /* Blue background color */
+            color: #fff; /* White text color */
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+            bottom: 0;
+            width: 100%;
+        }
+
         .btn-grey {
             background-color: grey;
             border-color: grey;
@@ -28,6 +48,27 @@
     </style>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Auto Otpad</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Parts</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <div class="container">
     <h2>Parts List</h2>
@@ -41,9 +82,9 @@
         <thead class="thead-light">
         <tr>
             <th>Name</th>
+            <th>Car Brand</th>
             <th>Car Model</th>
             <th>Category</th>
-            <th>Car Brand</th>
             <th>Available</th>
             <th>Actions</th>
         </tr>
@@ -51,9 +92,10 @@
         <tbody>
         <tr th:each="part : ${parts}">
             <td th:text="${part.name}">Name</td>
+            <td th:text="${part.carModel.carBrand.name}">Brand</td>
             <td th:text="${part.carModel.name}">Model</td>
             <td th:text="${part.category.name}">Category</td>
-            <td th:text="${part.carModel.carBrand.name}">Brand</td>
+
             <td>
                 <input type="checkbox" th:checked="${part.available}" disabled>
             </td>
@@ -69,7 +111,16 @@
     <a th:href="@{/showPartForm}">
         <button type="button" class="btn btn-grey mt-2">Add new Part</button>
     </a>
+    <a th:href="@{/showAllParts}">
+        <button type="button" class="btn btn-grey mt-2">All Parts</button>
+    </a>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        &copy; 2024 Auto otpad
+    </div>
+</footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

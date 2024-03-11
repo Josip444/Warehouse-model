@@ -63,12 +63,18 @@ public class PartController {
     @GetMapping("/showAllParts")
     public String showAllParts(Model model){
 
-        List<Parts> parts = this.partRepository.findAll();
 
+        List<Parts> parts = this.partRepository.findAll();
+        List<CarBrand> brands = this.carBrandRepository.findAll();
+
+
+        model.addAttribute("brands",brands);
         model.addAttribute("parts",parts);
 
         return "parts/showParts";
     }
+
+
 
     @PostMapping("/deletePart/{partId}")
     public String deleteOrder(@PathVariable Long partId){
