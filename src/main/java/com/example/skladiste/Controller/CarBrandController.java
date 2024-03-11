@@ -47,7 +47,7 @@ public class CarBrandController {
     }
 
     @PostMapping("/deleteCarBrand/{id}")
-    public String deleteOrder(@PathVariable Long id){
+    public String deleteCarBrand(@PathVariable Long id){
 
         this.carBrandService.deleteCarBrand(id);
 
