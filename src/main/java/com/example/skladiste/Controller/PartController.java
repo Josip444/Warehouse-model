@@ -8,6 +8,7 @@ import com.example.skladiste.Repository.CarBrandRepository;
 import com.example.skladiste.Repository.CarModelRepository;
 import com.example.skladiste.Repository.CategoryRepository;
 import com.example.skladiste.Repository.PartRepository;
+import com.example.skladiste.Service.CarModelService;
 import com.example.skladiste.Service.PartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 
 @Controller
@@ -33,6 +33,9 @@ public class PartController {
 
     @Autowired
     CarBrandRepository carBrandRepository;
+
+    @Autowired
+    CarModelService carModelService;
 
     @Autowired
     PartService partService;
@@ -57,7 +60,6 @@ public class PartController {
         return "redirect:/showAllParts";
     }
 
-
     @GetMapping("/showAllParts")
     public String showAllParts(Model model){
 
@@ -76,7 +78,7 @@ public class PartController {
         return "redirect:/showAllParts";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/searchForm")
     public String showProduct(Model model){
 
         List<Category>categories = this.categoryRepository.findAll();
@@ -97,6 +99,19 @@ public class PartController {
                               ,Model model){
 
         List<Parts> parts = this.partService.findPartsBySearch(brandId,modelId,categoryId);
+
+        model.addAttribute("parts",parts);
+        return "parts/showParts";
+    }
+    @GetMapping("/getModelsByBrand/{brandId}")
+    public List<CarModel> findModelsByBrand(@PathVariable Long brandId){
+        return this.carModelService.findModelsByBrand(brandId);
+    }
+
+    @GetMapping("/search")
+    public String searchByPartsName(Model model,@RequestParam("search")String search){
+
+        List<Parts> parts = this.partService.searchPartsByName(search);
 
         model.addAttribute("parts",parts);
         return "parts/showParts";

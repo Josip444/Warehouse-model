@@ -46,4 +46,8 @@ public class PartService {
         return null;
     }
 
+    public List<Parts> searchPartsByName(String search){
+
+        return this.partRepository.searchByName(search);
+    }
 }

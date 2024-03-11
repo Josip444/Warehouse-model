@@ -30,7 +30,12 @@
 
 <div class="container">
     <h2>Parts List</h2>
-
+    <div class="search-bar">
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="search" placeholder="Search parts...">
+            <button type="submit" class="btn btn-grey">Search</button>
+        </form>
+    </div>
     <table class="table table-bordered">
         <thead class="thead-light">
         <tr>
@@ -65,4 +70,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-</html>>
+</html>
