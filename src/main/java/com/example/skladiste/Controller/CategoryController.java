@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class CategoryController {
 
@@ -26,6 +28,16 @@ public class CategoryController {
 
         this.categoryRepository.save(category);
         return "redirect:/showCategoryForm";
+    }
+
+
+    @GetMapping("/showCategories")
+    public String showCategories(Model model){
+
+        List<Category>category=this.categoryRepository.findAll();
+
+        model.addAttribute("category",category);
+        return "Category/showCategorys";
     }
 
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Car Models</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        h2 {
+            text-align: center;
+        }
+
+        .btn-grey {
+            background-color: grey;
+            border-color: grey;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Car Models List</h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+
+            <th>Brand</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="model : ${carModel}">
+
+
+            <td th:text="${model.carBrand.name}">Brand</td>
+            <td th:text="${model.name}">Name</td>
+            <td>
+                <form th:action="@{/deleteCarModel/{id}(id=${model.id})}" method="post">
+                    <button type="submit" class="btn btn-grey delete-order-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <a th:href="@{/showModelForm}">
+        <button type="button" class="btn btn-grey mt-2">Add new Car Model</button>
+    </a>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
