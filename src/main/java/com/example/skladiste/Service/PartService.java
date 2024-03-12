@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class PartService {
@@ -32,7 +34,7 @@ public class PartService {
     {
         partRepository.deleteById(id);
     }
-    public List<Parts> findPartsBySearch(Long brandId,Long modelId,Long categoryId){
+    public Page<Parts> findPartsBySearch(Long brandId,Long modelId,Long categoryId,Pageable pageable){
 
         Optional<CarBrand> brand = this.carBrandRepository.findById(brandId);
         Optional<CarModel> model = this.carModelRepository.findById(modelId);
@@ -40,17 +42,14 @@ public class PartService {
 
         if(brand.isPresent() && model.isPresent() && category.isPresent()){
 
-            return this.partRepository.findPartsBySearch(brand.get(),model.get(),category.get());
+            return this.partRepository.findPartsBySearch(brand.get(),model.get(),category.get(),pageable);
         }
 
         return null;
     }
 
-    public List<Parts> searchPartsByName(String search){
+    public Page<Parts> searchPartsByName(String search,Pageable pageable){
 
-        return this.partRepository.searchByName(search);
+        return this.partRepository.searchByName(search,pageable);
     }
-
-
-
 }

@@ -40,13 +40,10 @@ public class CarModelController {
         return "redirect:/showCarModels";
     }
 
-
     @GetMapping("/showCarModels")
     public String showCarModels(Model model){
 
         List<CarModel> carModel = this.carModelRepository.findAll();
-
-
         model.addAttribute("carModel",carModel);
 
         return "model/showModels";
@@ -56,7 +53,6 @@ public class CarModelController {
     public String deleteOrder(@PathVariable Long id){
 
         this.carModelService.deleteCarModel(id);
-
         return "redirect:/showCarModels";
     }
 }

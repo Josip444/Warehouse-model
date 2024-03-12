@@ -65,11 +65,9 @@ public class PartController {
     @GetMapping("/showAllParts")
     public String showAllParts(@RequestParam(defaultValue = "0") int page,Model model){
 
-        PageRequest pageable = PageRequest.of(page, 3);
+        PageRequest pageable = PageRequest.of(page, 5);
         Page<Parts> parts = partRepository.findAll(pageable);
-        List<CarBrand> brands = this.carBrandRepository.findAll();
 
-        model.addAttribute("brands",brands);
         model.addAttribute("parts",parts.getContent());
         model.addAttribute("currentPage", parts.getNumber());
         model.addAttribute("totalPages", parts.getTotalPages());
@@ -101,20 +99,29 @@ public class PartController {
     @GetMapping("/searchParts")
     public String searchParts(@RequestParam(name = "brand",required = true)Long brandId,
                               @RequestParam(name= "model",required = true)Long modelId,
-                              @RequestParam(name="category",required = true)Long categoryId
-                              ,Model model){
+                              @RequestParam(name="category",required = true)Long categoryId,
+                              @RequestParam(defaultValue = "0") int page,Model model){
 
-        List<Parts> parts = this.partService.findPartsBySearch(brandId,modelId,categoryId);
+        PageRequest pageable = PageRequest.of(page, 5);
+        Page<Parts> parts = this.partService.findPartsBySearch(brandId,modelId,categoryId,pageable);
 
         model.addAttribute("parts",parts);
+        model.addAttribute("currentPage", parts.getNumber());
+        model.addAttribute("totalPages", parts.getTotalPages());
         return "parts/showParts";
     }
 
     @GetMapping("/search")
-    public String searchByPartsName(Model model,@RequestParam("search")String search){
-        List<Parts> parts = this.partService.searchPartsByName(search);
+    public String searchByPartsName(Model model,
+                                    @RequestParam("search")String search,
+                                    @RequestParam(defaultValue = "0") int page){
 
-        model.addAttribute("parts",parts);
+        PageRequest pageable = PageRequest.of(page, 5);
+        Page<Parts> parts = this.partService.searchPartsByName(search,pageable);
+
+        model.addAttribute("parts",parts.getContent());
+        model.addAttribute("currentPage", parts.getNumber());
+        model.addAttribute("totalPages", parts.getTotalPages());
         return "parts/showParts";
     }
 }
