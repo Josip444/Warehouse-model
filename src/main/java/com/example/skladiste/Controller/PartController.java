@@ -11,7 +11,9 @@ import com.example.skladiste.Repository.PartRepository;
 import com.example.skladiste.Service.CarModelService;
 import com.example.skladiste.Service.PartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,20 +63,18 @@ public class PartController {
     }
 
     @GetMapping("/showAllParts")
-    public String showAllParts(Model model){
+    public String showAllParts(@RequestParam(defaultValue = "0") int page,Model model){
 
-
-        List<Parts> parts = this.partRepository.findAll();
+        PageRequest pageable = PageRequest.of(page, 3);
+        Page<Parts> parts = partRepository.findAll(pageable);
         List<CarBrand> brands = this.carBrandRepository.findAll();
 
-
         model.addAttribute("brands",brands);
-        model.addAttribute("parts",parts);
-
+        model.addAttribute("parts",parts.getContent());
+        model.addAttribute("currentPage", parts.getNumber());
+        model.addAttribute("totalPages", parts.getTotalPages());
         return "parts/showParts";
     }
-
-
 
     @PostMapping("/deletePart/{partId}")
     public String deleteOrder(@PathVariable Long partId){
