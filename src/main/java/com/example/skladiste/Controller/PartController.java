@@ -1,9 +1,6 @@
 package com.example.skladiste.Controller;
 
-import com.example.skladiste.Model.CarBrand;
-import com.example.skladiste.Model.CarModel;
-import com.example.skladiste.Model.Category;
-import com.example.skladiste.Model.Parts;
+import com.example.skladiste.Model.*;
 import com.example.skladiste.Repository.CarBrandRepository;
 import com.example.skladiste.Repository.CarModelRepository;
 import com.example.skladiste.Repository.CategoryRepository;
@@ -65,7 +62,7 @@ public class PartController {
     @GetMapping("/showAllParts")
     public String showAllParts(@RequestParam(defaultValue = "0") int page,Model model){
 
-        PageRequest pageable = PageRequest.of(page, 5);
+        PageRequest pageable = PageRequest.of(page, MaxPerPage.MAX_PER_PAGE.getValue());
         Page<Parts> parts = partRepository.findAll(pageable);
 
         model.addAttribute("parts",parts.getContent());
@@ -102,7 +99,7 @@ public class PartController {
                               @RequestParam(name="category",required = true)Long categoryId,
                               @RequestParam(defaultValue = "0") int page,Model model){
 
-        PageRequest pageable = PageRequest.of(page, 5);
+        PageRequest pageable = PageRequest.of(page, MaxPerPage.MAX_PER_PAGE.getValue());
         Page<Parts> parts = this.partService.findPartsBySearch(brandId,modelId,categoryId,pageable);
 
         model.addAttribute("parts",parts);
@@ -116,7 +113,7 @@ public class PartController {
                                     @RequestParam("search")String search,
                                     @RequestParam(defaultValue = "0") int page){
 
-        PageRequest pageable = PageRequest.of(page, 5);
+        PageRequest pageable = PageRequest.of(page, MaxPerPage.MAX_PER_PAGE.getValue());
         Page<Parts> parts = this.partService.searchPartsByName(search,pageable);
 
         model.addAttribute("parts",parts.getContent());
