@@ -51,6 +51,6 @@ public class CarBrandController {
 
         this.carBrandService.deleteCarBrand(id);
 
-        return "redirect:/showAllParts";
+        return "redirect:/showAllCarBrands";
     }
 }
